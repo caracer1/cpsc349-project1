@@ -7,24 +7,45 @@ site: Pet Photos
 <body>
 
     <h1>{{ site }}</h1>
-
+    <nav class="navbar">
+    <a href='/'>Home</a>
     <a href="/aboutUs">About Us</a>
+</nav>
+{{content}}
 
-    {% unless page.url == '/' %}
-    	<a href="/">Home</a>
-    {% endunless %}
+{% for photo in collections.photos %}
+{% if page.url == photo.url%}
 
-    {{ content }}
 
+
+{{page}}
+
+{{photo.data.photo_keyword}}
+
+
+
+
+{%endif%}
+{% endfor %}
+
+
+    {% unless page.url != '/' %}
     <ul>
         {% for photo in collections.photos %}
             <li>
+                
                 <a href="{{ photo.url }}">
                     A {{ photo.data.photo_keyword }} photo
                     by {{ photo.data.photographer_first_name}} {{ photo.data.photographer_last_name }}
+                    
+                   
                 </a>
+               
             </li>
-        {% endfor %}
+            
+            {% endfor %}
+
+    {% endunless %}
     </ul>
 
 </body>

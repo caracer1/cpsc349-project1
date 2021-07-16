@@ -75,21 +75,21 @@ site: Pet Photos
             {% endif %}      
 
 
-        <a   href="{{lurl}}">Previous</a>   
-        <a   href="">Current</a> 
+        <a   href="{{lurl}}">Previous</a>   &nbsp;
+        <a   href="">{{numpage}}</a>            &nbsp;
         <a   href="{{rurl}}">Next</a>   
     
     <!-- Rendering the pageable tab when the current page is nthe last page -->    
     {% elsif numpage ==  99 %}
         {% capture lurl  %}{{ "/photos/0xx/" | replace: "xx", lValue }}{% endcapture %}             
-        <a   href="{{lurl}}">Previous</a>   
-        <a   href="">Current</a> 
+        <a   href="{{lurl}}">Previous</a>   &nbsp;
+        <a   href="">{{numpage}}</a>            &nbsp;
         <a   href="">Next</a>     
     <!-- Rendering the pageable tab when the current page is first page --> 
     {% elsif numpage ==  0 %}
         {% capture rurl  %}{{ "/photos/00xx/" | replace: "xx", rValue }}{% endcapture %}                
-        <a   href="">Previous</a>   
-        <a   href="">Current</a> 
+        <a   href="">Previous</a>           &nbsp;
+        <a   href="">{{numpage}}</a>            &nbsp;
         <a   href="{{rurl}}">Next</a>              
     {% endif %}      
     

@@ -47,6 +47,57 @@ site: Pet Photos
 {% endfor %}
 
 
+<!-- =====================implementing pageble nav by Bradley coding in liquid===========BIGIN===============-->                           
+
+{% assign urlParts = page.url | split: "/" %}
+<!-- get the number part of the url -->    
+<!-- convert string number to  interger -->
+{% assign numpage = urlParts[2] | times: 1 %}
+{% assign lValue = numpage %}
+{% assign rValue = numpage %}
+<!-- numpage - 1  -->
+{% capture lValue  %}{{% lValue | minus: 1 %}}{% endcapture %}    
+<!-- numpage +  1  -->
+{% capture rValue  %}{{% rValue | plus: 1 %}}{% endcapture %}    
+
+<!-- Rendering the pageable tab -->
+<div class="pagination"style="text-align: center;">
+    <!-- Rendering the pageable tab when the current page is not the first or last page -->
+    {% if numpage >  0  and numpage < 99 %}  
+            <!-- add 00 to the from before convertt back to string -->               
+            {% if numpage < 9  %}  
+                {% capture lurl  %}{{ "/photos/00xx/" | replace: "xx", lValue }}{% endcapture %}
+                {% capture rurl  %}{{ "/photos/00xx/" | replace: "xx", rValue }}{% endcapture %}   
+            <!-- add 0 to the from before convertt back to string -->     
+            {% elsif numpage  > 9 %}
+                {% capture lurl  %}{{ "/photos/0xx/" | replace: "xx", lValue }}{% endcapture %}
+                {% capture rurl  %}{{ "/photos/0xx/" | replace: "xx", rValue }}{% endcapture %}  
+            {% endif %}      
+
+
+        <a   href="{{lurl}}">Previous</a>   
+        <a   href="">Current</a> 
+        <a   href="{{rurl}}">Next</a>   
+    
+    <!-- Rendering the pageable tab when the current page is nthe last page -->    
+    {% elsif numpage ==  99 %}
+        {% capture lurl  %}{{ "/photos/0xx/" | replace: "xx", lValue }}{% endcapture %}             
+        <a   href="{{lurl}}">Previous</a>   
+        <a   href="">Current</a> 
+        <a   href="">Next</a>     
+    <!-- Rendering the pageable tab when the current page is first page --> 
+    {% elsif numpage ==  0 %}
+        {% capture rurl  %}{{ "/photos/00xx/" | replace: "xx", rValue }}{% endcapture %}                
+        <a   href="">Previous</a>   
+        <a   href="">Current</a> 
+        <a   href="{{rurl}}">Next</a>              
+    {% endif %}      
+    
+    
+</div>
+    
+<!-- =====================implementing pageble nav by Bradley coding in liquid============END==============-->
+    
     {% unless page.url != '/' %}
     <ul>
         {% for photo in collections.photos %}

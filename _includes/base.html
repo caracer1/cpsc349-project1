@@ -16,15 +16,33 @@ site: Pet Photos
 {% for photo in collections.photos %}
 {% if page.url == photo.url%}
 
-
-
-{{page}}
-
-{{photo.data.photo_keyword}}
-
-
-
-
+<ul>
+    <li>
+       Keyword: {{photo.data.photo_keyword}}
+    </li>
+    {% if photo.data.photo_location_city != '' %}
+    <li>
+        {{photo.data.photo_location_city}}
+    </li>
+    <li>
+        {{photo.data.photo_location_country}}
+    </li>
+    {%endif%}
+    {% if photo.data.photographer_first_name != '' %}
+    <li>
+        {{photo.data.photographer_first_name}}
+    </li>
+    <li>
+        {{photo.data.photographer_last_name}}
+    </li>
+    {%endif%}
+    <li>
+        {{photo.data.photographer_username}}
+    </li>
+    <li>
+      Credit:  {{photo.data.photo_url}}
+    </li>
+</ul>
 {%endif%}
 {% endfor %}
 

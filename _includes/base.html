@@ -74,12 +74,20 @@ site: Pet Photos
 <div class="pagination"style="text-align: center;">
     <!-- Rendering the pageable tab when the current page is not the first or last page -->
     {% if numpage >  0  and numpage < 99 %}  
-            <!-- add 00 to the from before convertt back to string -->               
+            <!-- add 00 to the lvalue and rvalue before convert back to string -->               
             {% if numpage < 9  %}  
                 {% capture lurl  %}{{ "/photos/00xx/" | replace: "xx", lValue }}{% endcapture %}
                 {% capture rurl  %}{{ "/photos/00xx/" | replace: "xx", rValue }}{% endcapture %}   
+            <!-- add 00 to the lvalue and 0 to the rvalue before convert back to string -->     
+            {% elsif numpage  == 9 %}
+                {% capture lurl  %}{{ "/photos/00xx/" | replace: "xx", lValue }}{% endcapture %}
+                {% capture rurl  %}{{ "/photos/0xx/" | replace: "xx", rValue }}{% endcapture %}  
+            <!-- add 00 to the lvalue and 0 to rvalue  before convert back to string -->     
+            {% elsif numpage  == 10 %}
+                {% capture lurl  %}{{ "/photos/00xx/" | replace: "xx", lValue }}{% endcapture %}
+                {% capture rurl  %}{{ "/photos/0xx/" | replace: "xx", rValue }}{% endcapture %} 
             <!-- add 0 to the from before convertt back to string -->     
-            {% elsif numpage  > 9 %}
+            {% elsif numpage  > 10 %}
                 {% capture lurl  %}{{ "/photos/0xx/" | replace: "xx", lValue }}{% endcapture %}
                 {% capture rurl  %}{{ "/photos/0xx/" | replace: "xx", rValue }}{% endcapture %}  
             {% endif %}      

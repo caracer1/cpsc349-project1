@@ -28,32 +28,29 @@ site: Pet Photos
 
 {% for photo in collections.photos %}
 {% if page.url == photo.url%}
-
+<h3> Available Details:</h3>
 <ul>
-    <li>
-       Keyword: {{photo.data.photo_keyword}}
-    </li>
+
     {% if photo.data.photo_location_city != '' %}
     <li>
-        {{photo.data.photo_location_city}}
+        City: {{photo.data.photo_location_city}}
     </li>
     <li>
-        {{photo.data.photo_location_country}}
+        Country: {{photo.data.photo_location_country}}
     </li>
     {%endif%}
     {% if photo.data.photographer_first_name != '' %}
     <li>
-        {{photo.data.photographer_first_name}}
+       Photographer: {{photo.data.photographer_first_name}} {{photo.data.photographer_last_name}}
     </li>
-    <li>
-        {{photo.data.photographer_last_name}}
-    </li>
+ 
     {%endif%}
     <li>
-        {{photo.data.photographer_username}}
+        Username: {{photo.data.photographer_username}}
     </li>
     <li>
-      Credit:  {{photo.data.photo_url}}
+        <a href="{{photo.data.photo_url}}">Source</a> 
+      
     </li>
 </ul>
 {%endif%}

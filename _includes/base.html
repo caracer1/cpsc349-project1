@@ -4,13 +4,26 @@ site: Pet Photos
 <head>
     <link rel="stylesheet" href="https://unpkg.com/mvp.css">
 </head>
-<body>
 
+{% for photo in collections.photos %}
+{% if page.url == photo.url%}
+<body style="background-color: {{photo.data.color_keyword}};">
+
+{% endif %} 
+{% endfor %} 
+<!-- Added site name to header/NAV -->
+<header>
     <h1>{{ site }}</h1>
     <nav class="navbar">
     <a href='/'>Home</a>
     <a href="/aboutUs">About Us</a>
 </nav>
+</header>
+<hr>
+
+
+
+
 {{content}}
 
 {% for photo in collections.photos %}
@@ -116,5 +129,19 @@ site: Pet Photos
 
     {% endunless %}
     </ul>
-
+<!-- Implemented Footer on the page. Added a line break for easy consumption.  -->
+<!-- Added a NAV based Site MAP to the footer  -->
+    <hr>
+    <footer">
+        <!-- Added Copyright symbol, credit to Bradley -->
+        <p>&copy;Copyright Team 6. All rights Reserved!</p>
+        <nav>
+        <h3>Site Map:</h3>
+        <ul>
+        <a href='/'>Home </a>
+        <p><br></p>
+        <a href="/aboutUs">About Us</a>
+        </ul>
+    </nav>
+    </footer>
 </body>

@@ -1,152 +1,157 @@
 ---
 site: Pet Photos
 ---
-<head>
-    <link rel="stylesheet" href="https://unpkg.com/mvp.css">
-</head>
 
-{% for photo in collections.photos %}
-{% if page.url == photo.url%}
-<body style="background-color: {{photo.data.color_keyword}};">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Team-6 Pet Photos</title>       
+        <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+        <link rel="shortcut icon" type="image/jpg" href="logo.jpg"/>
+    </head>
 
-{% endif %} 
-{% endfor %} 
-<!-- Added site name to header/NAV -->
-<header>
-    <h1>{{ site }}</h1>
-    <nav class="navbar">
-    <a href='/'>Home</a>
-    <a href="/aboutUs">About Us</a>
-</nav>
-</header>
-<hr>
-
-
-
-
-{{content}}
-
-{% for photo in collections.photos %}
-{% if page.url == photo.url%}
-<h3> Available Details:</h3>
-<ul>
-
-    {% if photo.data.photo_location_city != '' %}
-    <li>
-        City: {{photo.data.photo_location_city}}
-    </li>
-    <li>
-        Country: {{photo.data.photo_location_country}}
-    </li>
-    {%endif%}
-    {% if photo.data.photographer_first_name != '' %}
-    <li>
-       Photographer: {{photo.data.photographer_first_name}} {{photo.data.photographer_last_name}}
-    </li>
- 
-    {%endif%}
-    <li>
-        Username: {{photo.data.photographer_username}}
-    </li>
-    <li>
-        <a href="{{photo.data.photo_url}}">Source</a> 
-      
-    </li>
-</ul>
-{%endif%}
-{% endfor %}
-
-
-<!-- =====================implementing pageble nav by Bradley coding in liquid===========BIGIN===============-->                           
-
-{% assign urlParts = page.url | split: "/" %}
-<!-- get the number part of the url -->    
-<!-- convert string number to  interger -->
-{% assign numpage = urlParts[2] | times: 1 %}
-{% assign lValue = numpage %}
-{% assign rValue = numpage %}
-<!-- numpage - 1  -->
-{% capture lValue  %}{{% lValue | minus: 1 %}}{% endcapture %}    
-<!-- numpage +  1  -->
-{% capture rValue  %}{{% rValue | plus: 1 %}}{% endcapture %}    
-
-<!-- Rendering the pageable tab -->
-<div class="pagination"style="text-align: center;">
-    <!-- Rendering the pageable tab when the current page is not the first or last page -->
-    {% if numpage >  0  and numpage < 99 %}  
-            <!-- add 00 to the lvalue and rvalue before convert back to string -->               
-            {% if numpage < 9  %}  
-                {% capture lurl  %}{{ "/photos/00xx/" | replace: "xx", lValue }}{% endcapture %}
-                {% capture rurl  %}{{ "/photos/00xx/" | replace: "xx", rValue }}{% endcapture %}   
-            <!-- add 00 to the lvalue and 0 to the rvalue before convert back to string -->     
-            {% elsif numpage  == 9 %}
-                {% capture lurl  %}{{ "/photos/00xx/" | replace: "xx", lValue }}{% endcapture %}
-                {% capture rurl  %}{{ "/photos/0xx/" | replace: "xx", rValue }}{% endcapture %}  
-            <!-- add 00 to the lvalue and 0 to rvalue  before convert back to string -->     
-            {% elsif numpage  == 10 %}
-                {% capture lurl  %}{{ "/photos/00xx/" | replace: "xx", lValue }}{% endcapture %}
-                {% capture rurl  %}{{ "/photos/0xx/" | replace: "xx", rValue }}{% endcapture %} 
-            <!-- add 0 to the from before convertt back to string -->     
-            {% elsif numpage  > 10 %}
-                {% capture lurl  %}{{ "/photos/0xx/" | replace: "xx", lValue }}{% endcapture %}
-                {% capture rurl  %}{{ "/photos/0xx/" | replace: "xx", rValue }}{% endcapture %}  
-            {% endif %}      
-
-
-        <a   href="{{lurl}}">Previous</a>   &nbsp;
-        <a   href="">{{numpage}}</a>            &nbsp;
-        <a   href="{{rurl}}">Next</a>   
+    {% for photo in collections.photos %}
+        {% if page.url == photo.url%}
+    <body style="background-color: {{photo.data.color_keyword}}">
+        {% endif %} 
+    {% endfor %} 
     
-    <!-- Rendering the pageable tab when the current page is nthe last page -->    
-    {% elsif numpage ==  99 %}
-        {% capture lurl  %}{{ "/photos/0xx/" | replace: "xx", lValue }}{% endcapture %}             
-        <a   href="{{lurl}}">Previous</a>   &nbsp;
-        <a   href="">{{numpage}}</a>            &nbsp;
-        <a   href="">Next</a>     
-    <!-- Rendering the pageable tab when the current page is first page --> 
-    {% elsif numpage ==  0 %}
-        {% capture rurl  %}{{ "/photos/00xx/" | replace: "xx", rValue }}{% endcapture %}                
-        <a   href="">Previous</a>           &nbsp;
-        <a   href="">{{numpage}}</a>            &nbsp;
-        <a   href="{{rurl}}">Next</a>              
-    {% endif %}      
-    
-    
-</div>
-    
-<!-- =====================implementing pageble nav by Bradley coding in liquid============END==============-->
-    
-    {% unless page.url != '/' %}
-    <ul>
-        {% for photo in collections.photos %}
-            <li>
-                
-                <a href="{{ photo.url }}">
-                    A {{ photo.data.photo_keyword }} photo
-                    by {{ photo.data.photographer_first_name}} {{ photo.data.photographer_last_name }}
-                    
-                   
-                </a>
-               
-            </li>
-            
-            {% endfor %}
-
-    {% endunless %}
-    </ul>
-<!-- Implemented Footer on the page. Added a line break for easy consumption.  -->
-<!-- Added a NAV based Site MAP to the footer  -->
-    <hr>
-    <footer">
-        <!-- Added Copyright symbol, credit to Bradley -->
-        <p>&copy;Copyright Team 6. All rights Reserved!</p>
-        <nav>
-        <h3>Site Map:</h3>
-        <ul>
-        <a href='/'>Home </a>
-        <p><br></p>
+    <!-- Added site name to header/NAV -->
+    <header>
+        <h1 style="font-size: 100px; color: black; margin: 10px;">{{ site }}</h1>
+        <nav class="navbar">
+        <a href='/'>Home</a>
         <a href="/aboutUs">About Us</a>
-        </ul>
     </nav>
-    </footer>
-</body>
+    </header>
+    <hr>
+
+
+
+
+       <main>
+           {{content}}
+           {% unless page.url != '/' %}
+           <ul>
+               {% for photo in collections.photos %}
+                   <li>                    
+                       <a href="{{ photo.url }}">
+                           A {{ photo.data.photo_keyword }} photo
+                           by {{ photo.data.photographer_first_name}} {{ photo.data.photographer_last_name }}                                            
+                       </a>                
+                   </li>                
+                   {% endfor %}        
+           </ul>
+           {% endunless %}  
+           
+           {% for photo in collections.photos %}
+                {% if page.url == photo.url%}
+                <h3> Available Details:</h3>
+                <ul>
+
+                    {% if photo.data.photo_location_city != '' %}
+                    <li>
+                        City: {{photo.data.photo_location_city}}
+                    </li>
+                    <li>
+                        Country: {{photo.data.photo_location_country}}
+                    </li>
+                    {%endif%}
+                    {% if photo.data.photographer_first_name != '' %}
+                    <li>
+                        Photographer: {{photo.data.photographer_first_name}} {{photo.data.photographer_last_name}}
+                    </li>
+                
+                    {%endif%}
+                    <li>
+                        Username: {{photo.data.photographer_username}}
+                    </li>
+                    <li>
+                        <a href="{{photo.data.photo_url}}">Source</a> 
+                    
+                    </li>
+                </ul>
+                {%endif%}
+           {% endfor %}
+       </main> 
+
+       
+
+
+        <!-- ============BIGIN===============implementing pageble nav by Bradley coding in liquid===========BIGIN===============-->                           
+
+        {% assign urlParts = page.url | split: "/" %}
+        <!-- get the number part of the url -->    
+        <!-- convert string number to  interger -->
+        {% assign numpage = urlParts[2] | times: 1 %}
+        {% assign lValue = numpage %}
+        {% assign rValue = numpage %}
+        <!-- numpage - 1  -->
+        {% capture lValue  %}{{% lValue | minus: 1 %}}{% endcapture %}    
+        <!-- numpage +  1  -->
+        {% capture rValue  %}{{% rValue | plus: 1 %}}{% endcapture %}    
+
+        <!-- Rendering the pageable tab -->
+        <div class="pagination"style="text-align: center;">
+        <!-- Rendering the pageable tab when the current page is not the first or last page -->
+        {% if numpage >  0  and numpage < 99 %}  
+                <!-- add 00 to the lvalue and rvalue before convert back to string -->               
+                {% if numpage < 9  %}  
+                    {% capture lurl  %}{{ "/photos/00xx/" | replace: "xx", lValue }}{% endcapture %}
+                    {% capture rurl  %}{{ "/photos/00xx/" | replace: "xx", rValue }}{% endcapture %}   
+                <!-- add 00 to the lvalue and 0 to the rvalue before convert back to string -->     
+                {% elsif numpage  == 9 %}
+                    {% capture lurl  %}{{ "/photos/00xx/" | replace: "xx", lValue }}{% endcapture %}
+                    {% capture rurl  %}{{ "/photos/0xx/" | replace: "xx", rValue }}{% endcapture %}  
+                <!-- add 00 to the lvalue and 0 to rvalue  before convert back to string -->     
+                {% elsif numpage  == 10 %}
+                    {% capture lurl  %}{{ "/photos/00xx/" | replace: "xx", lValue }}{% endcapture %}
+                    {% capture rurl  %}{{ "/photos/0xx/" | replace: "xx", rValue }}{% endcapture %} 
+                <!-- add 0 to the from before convertt back to string -->     
+                {% elsif numpage  > 10 %}
+                    {% capture lurl  %}{{ "/photos/0xx/" | replace: "xx", lValue }}{% endcapture %}
+                    {% capture rurl  %}{{ "/photos/0xx/" | replace: "xx", rValue }}{% endcapture %}  
+                {% endif %}      
+
+
+            <a   href="{{lurl}}">Previous</a>   &nbsp;
+            <a   href="">{{numpage}}</a>        &nbsp;
+            <a   href="{{rurl}}">Next</a>   
+        
+        <!-- Rendering the pageable tab when the current page is nthe last page -->    
+        {% elsif numpage ==  99 %}
+            {% capture lurl  %}{{ "/photos/0xx/" | replace: "xx", lValue }}{% endcapture %}             
+            <a   href="{{lurl}}">Previous</a>   &nbsp;
+            <a   href="">{{numpage}}</a>        &nbsp;
+            <a   href="">Next</a>    
+        <!-- Rendering the pageable tab when the current page is first page --> 
+        {% elsif numpage ==  0 %}
+            {% capture rurl  %}{{ "/photos/00xx/" | replace: "xx", rValue }}{% endcapture %}                
+            <a   href="">Previous</a>           &nbsp;
+            <a   href="">{{numpage}}</a>        &nbsp;
+            <a   href="{{rurl}}">Next</a>              
+        {% endif %}                      
+        </div>
+        
+    <!-- ===========END============implementing pageble nav by Bradley coding in liquid========================-->
+        
+       
+        <!-- Implemented Footer on the page. Added a line break for easy consumption.  -->
+    <!-- Added a NAV based Site MAP to the footer  -->
+        <hr>
+        <footer">
+            <!-- Added Copyright symbol, credit to Bradley -->
+            <p>&copy; Copyright Team 6. All rights Reserved!</p>
+            <nav>
+                <h3>Site Map:</h3>
+                <ul>
+                    <a href='/'>Home </a>
+                    <p><br></p>
+                    <a href="/aboutUs">About Us</a>
+                </ul>
+            </nav>
+        </footer>
+    </body>
+
+</html>

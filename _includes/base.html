@@ -19,17 +19,21 @@ site: Pet Photos
     
     <!-- Added site name to header/NAV -->
     <header>
-        <h1 style="font-size: 100px; color: black; margin: 10px;">{{ site }}</h1>
-        <nav class="navbar">
-        <a href='/'>Home</a>
-        <a href="/aboutUs">About Us</a>
-    </nav>
+        <h1 style="font-size: 100px; color: black; margin: 10px;">{{ site }}</h1> 
+
+        <nav class="navbar" style="font-size: 20px; margin: 20px;">
+            <ul>
+                <li><a href='/'>Home</a></li>
+                <li><a href="/aboutUs">About Us</a></li>
+            </ul>
+        </nav>
+         
     </header>
-
-
+    
 
 <!-- This is applied to when you actually click on a photo -->
        <main>
+            <hr>  
            {{content}}
            <!-- This hides the main photo list when you are on a photo page. -->
            {% unless page.url != '/' %}
@@ -75,28 +79,28 @@ site: Pet Photos
                 </ul>
                 {%endif%}
            {% endfor %}
-       </main> 
+       
 
        
 
 
-        <!-- ============BIGIN===============implementing pageble nav by Bradley coding in liquid===========BIGIN===============-->                           
+            <!-- ============BIGIN===============implementing pageble nav by Bradley coding in liquid===========BIGIN===============-->                           
 
-        {% assign urlParts = page.url | split: "/" %}
-        <!-- get the number part of the url -->    
-        <!-- convert string number to  interger -->
-        {% assign numpage = urlParts[2] | times: 1 %}
-        {% assign lValue = numpage %}
-        {% assign rValue = numpage %}
-        <!-- numpage - 1  -->
-        {% capture lValue  %}{{% lValue | minus: 1 %}}{% endcapture %}    
-        <!-- numpage +  1  -->
-        {% capture rValue  %}{{% rValue | plus: 1 %}}{% endcapture %}    
+            {% assign urlParts = page.url | split: "/" %}
+            <!-- get the number part of the url -->    
+            <!-- convert string number to  interger -->
+            {% assign numpage = urlParts[2] | times: 1 %}
+            {% assign lValue = numpage %}
+            {% assign rValue = numpage %}
+            <!-- numpage - 1  -->
+            {% capture lValue  %}{{% lValue | minus: 1 %}}{% endcapture %}    
+            <!-- numpage +  1  -->
+            {% capture rValue  %}{{% rValue | plus: 1 %}}{% endcapture %}    
 
-        <!-- Rendering the pageable tab -->
-        <div class="pagination"style="text-align: center;">
-        <!-- Rendering the pageable tab when the current page is not the first or last page -->
-        {% if numpage >  0  and numpage < 99 %}  
+            <!-- Rendering the pageable tab -->
+            <div class="pagination"style="text-align: center;">
+            <!-- Rendering the pageable tab when the current page is not the first or last page -->
+            {% if numpage >  0  and numpage < 99 %}  
                 <!-- add 00 to the lvalue and rvalue before convert back to string -->               
                 {% if numpage < 9  %}  
                     {% capture lurl  %}{{ "/photos/00xx/" | replace: "xx", lValue }}{% endcapture %}
@@ -120,39 +124,40 @@ site: Pet Photos
             <a   href="">{{numpage}}</a>        &nbsp;
             <a   href="{{rurl}}">Next</a>   
         
-        <!-- Rendering the pageable tab when the current page is nthe last page -->    
-        {% elsif numpage ==  99 %}
-            {% capture lurl  %}{{ "/photos/0xx/" | replace: "xx", lValue }}{% endcapture %}             
-            <a   href="{{lurl}}">Previous</a>   &nbsp;
-            <a   href="">{{numpage}}</a>        &nbsp;
-            <a   href="">Next</a>    
-        <!-- Rendering the pageable tab when the current page is first page --> 
-        {% elsif numpage ==  0 %}
-            {% capture rurl  %}{{ "/photos/00xx/" | replace: "xx", rValue }}{% endcapture %}                
-            <a   href="">Previous</a>           &nbsp;
-            <a   href="">{{numpage}}</a>        &nbsp;
-            <a   href="{{rurl}}">Next</a>              
-        {% endif %}                      
-        </div>
+            <!-- Rendering the pageable tab when the current page is nthe last page -->    
+            {% elsif numpage ==  99 %}
+                {% capture lurl  %}{{ "/photos/0xx/" | replace: "xx", lValue }}{% endcapture %}             
+                <a   href="{{lurl}}">Previous</a>   &nbsp;
+                <a   href="">{{numpage}}</a>        &nbsp;
+                <a   href="">Next</a>    
+            <!-- Rendering the pageable tab when the current page is first page --> 
+            {% elsif numpage ==  0 %}
+                {% capture rurl  %}{{ "/photos/00xx/" | replace: "xx", rValue }}{% endcapture %}                
+                <a   href="">Previous</a>           &nbsp;
+                <a   href="">{{numpage}}</a>        &nbsp;
+                <a   href="{{rurl}}">Next</a>              
+            {% endif %}                      
+            </div>
+            
+        <!-- ===========END============implementing pageble nav by Bradley coding in liquid========================-->
+            
         
-    <!-- ===========END============implementing pageble nav by Bradley coding in liquid========================-->
-        
-       
-        <!-- Implemented Footer on the page. Added a line break for easy consumption.  -->
-    <!-- Added a NAV based Site MAP to the footer  -->
-        <hr>
-        <footer">
-            <!-- Added Copyright symbol, credit to Bradley -->
-            <p>&copy; Copyright Team 6. All rights Reserved!</p>
-            <nav>
-                <h3>Site Map:</h3>
-                <ul>
-                    <a href='/'>Home </a>
-                    <p><br></p>
-                    <a href="/aboutUs">About Us</a>
-                </ul>
-            </nav>
-        </footer>
+            <!-- Implemented Footer on the page. Added a line break for easy consumption.  -->
+        <!-- Added a NAV based Site MAP to the footer  -->
+            <hr>
+            <footer">
+                <!-- Added Copyright symbol, credit to Bradley -->
+                <p>&copy;Copyright Team 6. All rights Reserved!</p>
+                <nav>
+                    <!-- site map at bottom of page so user has easy access to home/aboutUs  -->
+                    <h3>Site Map:</h3>
+                    <ul>
+                        <li><a href='/'>Home </a>
+                        <li><a href="/aboutUs">About Us</a>
+                    </ul>
+                </nav>        
+            </footer>
+        </main>
     </body>
-
+ 
 </html>

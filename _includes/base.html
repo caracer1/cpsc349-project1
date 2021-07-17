@@ -29,9 +29,10 @@ site: Pet Photos
 
 
 
-
+<!-- This is applied to when you actually click on a photo -->
        <main>
            {{content}}
+           <!-- This hides the main photo list when you are on a photo page. -->
            {% unless page.url != '/' %}
            <ul>
                {% for photo in collections.photos %}
@@ -44,7 +45,8 @@ site: Pet Photos
                    {% endfor %}        
            </ul>
            {% endunless %}  
-           
+           <!-- This displays the photo metadata. -->
+           <!-- It uses a loop to check the URL and see what photo you are on -->
            {% for photo in collections.photos %}
                 {% if page.url == photo.url%}
                 <h3> Available Details:</h3>
